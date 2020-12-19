@@ -29,24 +29,26 @@ static char *builtins[] = {
     "exit",
 };
 
-static int (*builtins_funcs[])(char **) = {
-    &mx_exit_builtin,
-};
-
 char *mx_getline();
 void mx_replace_char(char *str, const char which, const char whith);
 t_2d_arr *mx_split_commands(const char *arg);
 char **mx_str_split(char *a_str, const char a_delim);
 t_2d_arr *mx_parse_commands(t_2d_arr *commands);
-void mx_process_command(char *command_str);
+int mx_process_command(char *command_str);
 t_command *mx_parse_str_command(char *command_str);
 
 t_2d_arr *mx_create_2d_char_arr(void **arr, int size);
 t_command *mx_create_command(char *name, char **args, int argc);
+char **mx_command_to_array(t_command *command);
 
+int mx_builtins_count();
 int mx_launch_program(char **args);
 int mx_execute_command(char **args);
 
 //builtins
 
 int mx_exit_builtin(char **args);
+
+static int (*builtins_funcs[])(char **) = {
+    &mx_exit_builtin,
+};

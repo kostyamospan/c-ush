@@ -9,7 +9,7 @@ int mx_execute_command(char **args)
         return 1;
     }
 
-    for (i = 0; i < lsh_num_builtins(); i++)
+    for (i = 0; i < mx_builtins_count(); i++)
         if (strcmp(args[0], builtins[i]) == 0)
             return (*builtins_funcs[i])(args);
 

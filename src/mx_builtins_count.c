@@ -1,6 +1,6 @@
 #include "../inc/ush.h"
 
-int lsh_num_builtins()
+int mx_builtins_count()
 {
     return sizeof(builtins) / sizeof(char *);
 }

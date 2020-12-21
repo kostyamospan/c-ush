@@ -10,6 +10,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <stdlib.h>
+#include <signal.h>
 
 typedef struct s_2d_arr
 {
@@ -32,6 +33,7 @@ static char *builtins[] = {
     "export",
     "pwd",
     "echo",
+    "cd",
 };
 
 char *mx_getline();
@@ -55,6 +57,7 @@ int mx_exit_builtin(t_command *command);
 int mx_export_builtin(t_command *command);
 int mx_pwd_builtin(t_command *command);
 int mx_echo_builtin(t_command *command);
+int mx_cd_builtin(t_command *args);
 
 //flags validation
 bool mx_is_flag(const char *str);
@@ -65,4 +68,5 @@ static int (*builtins_funcs[])(t_command *) = {
     &mx_export_builtin,
     &mx_pwd_builtin,
     &mx_echo_builtin,
+    &mx_cd_builtin,
 };

@@ -51,3 +51,21 @@ int mx_echo_builtin(t_command *command)
 
     return 1;
 }
+
+int mx_cd_builtin(t_command *command)
+{
+    char *dir_name;
+
+    if (command->args == NULL || command->args[0] == NULL)
+    {
+        dir_name = getenv("HOME");
+        printf("%s", dir_name);
+    }
+    else
+        dir_name = command->args[0];
+
+    if (chdir((const char *)dir_name) != 0)
+        perror("lsh");
+
+    return 1;
+}

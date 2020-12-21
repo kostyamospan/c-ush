@@ -3,14 +3,7 @@
 int mx_process_command(char *command_str)
 {
     t_command *command = mx_parse_str_command(command_str);
-
-       /*
-     printf("%d", command->argc);
-     for (int i = 0; i < command->argc; i++)
-    {
-        printf("%s", command->args[i]);
-    }
- */
+    
     for (int i = 0; i < mx_builtins_count(); i++)
         if (strcmp(command->name, builtins[i]) == 0)
             return (*builtins_funcs[i])(command);

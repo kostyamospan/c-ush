@@ -3,9 +3,11 @@
 void mx_ush_loop(char **args)
 {
     int execution_status;
-
     do
     {
+        signal(SIGINT, mx_ctrl_c_handler);
+        have_child_proccess = false;
+
         execution_status = 1;
 
         printf("u&h> ");

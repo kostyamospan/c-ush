@@ -36,6 +36,8 @@ static char *builtins[] = {
     "cd",
 };
 
+static bool have_child_proccess = false;
+
 char *mx_getline();
 void mx_replace_char(char *str, const char which, const char whith);
 t_2d_arr *mx_split_commands(const char *arg);
@@ -62,6 +64,8 @@ int mx_cd_builtin(t_command *args);
 //flags validation
 bool mx_is_flag(const char *str);
 bool mx_is_arguments_contains_flag(const char **args, int argc, const char flag);
+//signal handlers
+void mx_ctrl_c_handler(int id);
 
 static int (*builtins_funcs[])(t_command *) = {
     &mx_exit_builtin,
@@ -70,3 +74,7 @@ static int (*builtins_funcs[])(t_command *) = {
     &mx_echo_builtin,
     &mx_cd_builtin,
 };
+
+char *mx_str_replace(char *orig, char *rep, char *with);
+void mx_replace_exp(char *str);
+char *mx_search_exp(char *str);

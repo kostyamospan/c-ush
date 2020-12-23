@@ -6,11 +6,14 @@ int mx_launch_program(char **args)
     int status;
 
     pid = fork();
+
     if (pid == 0)
     {
+        have_child_proccess = true;
+
         if (execvp(args[0], args) == -1)
             perror("ush");
-            
+
         exit(EXIT_FAILURE);
     }
     else if (pid < 0)
@@ -23,6 +26,7 @@ int mx_launch_program(char **args)
         {
             waitpid(pid, &status, WUNTRACED);
         } while (!WIFEXITED(status) && !WIFSIGNALED(status));
+        have_child_proccess = false;
     }
 
     return 1;

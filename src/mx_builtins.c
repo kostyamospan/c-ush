@@ -14,7 +14,28 @@ int mx_export_builtin(t_command *command)
     }
     else if (command->argc == 1)
     {
-        printf("seting variable\n");
+        for (int i = 0; i < command->argc; i++)
+        {
+            char **splitted_arg = mx_str_split(command->args[i], '=');
+
+            if (splitted_arg != NULL)
+            {
+                setenv(splitted_arg[0], splitted_arg[1], 1);
+            }
+
+            free(splitted_arg);
+        }
+    }
+
+    return 1;
+}
+
+int mx_unset_builtin(t_command *command)
+{
+    if (command->argc >= 1)
+    {
+        for (int i = 0; i < command->argc; i++)
+            unset(command->args[i]);
     }
 
     return 1;

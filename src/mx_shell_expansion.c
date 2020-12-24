@@ -1,28 +1,22 @@
 #include "../inc/ush.h"
 
-void mx_replace_exp(char *str)
+void mx_replace_exp(char **str)
 {
     char *env_value;
-    char *str_copy = mx_strdup(str);
-    char *exp = mx_search_exp(str);
-    
-    printf("%s - exp\n", exp);
+    char *str_copy = mx_strdup(*str);
+    char *exp = mx_search_exp(str_copy);
 
-    while (*str && exp != NULL)
+    while (*str_copy && exp != NULL)
     {
-        printf("%s - exp\n", exp);
-
         env_value = getenv(exp + 1);
 
-        printf("%s - env val\n", env_value);
-
         if (env_value != NULL)
-            mx_str_replace(str, exp, env_value);
+            *str = mx_str_replace(*str, exp, env_value);
 
-        str += mx_strlen(exp);
+        *str_copy += mx_strlen(exp);
 
         free(exp);
-        exp = mx_search_exp(str);
+        exp = mx_search_exp(str_copy);
     }
 }
 
@@ -35,7 +29,7 @@ char *mx_search_exp(char *str)
     {
         for (int i = 0; i < mx_strlen(str); i++)
         {
-            if (i != 1)
+            if (i != 0)
             {
                 if (!(mx_isdigit(str[i]) || mx_isalpha(str[i])))
                 {
@@ -51,13 +45,13 @@ char *mx_search_exp(char *str)
     }
 
     if (e_i == -1)
-        e_i = mx_strlen(str - 1);
+        e_i = mx_strlen(str);
 
     char *res = mx_strnew(e_i);
 
-    for (int i = e_i; i < e_i; i++)
+    for (int i = 0; i < e_i; i++)
     {
-        res[j++] = str[i];
+        res[i] = str[i];
     }
 
     return res;

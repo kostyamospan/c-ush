@@ -56,10 +56,14 @@ int mx_builtins_count();
 
 //builtins
 int mx_exit_builtin(t_command *command);
-int mx_export_builtin(t_command *command);
 int mx_pwd_builtin(t_command *command);
-int mx_echo_builtin(t_command *command);
 int mx_cd_builtin(t_command *args);
+int mx_echo_builtin(t_command *command);
+
+#ifdef __USE_XOPEN2K
+int mx_export_builtin(t_command *command);
+int mx_unset_builtin(t_command *command);
+#endif
 
 //flags validation
 bool mx_is_flag(const char *str);
@@ -69,12 +73,15 @@ void mx_ctrl_c_handler(int id);
 
 static int (*builtins_funcs[])(t_command *) = {
     &mx_exit_builtin,
-    &mx_export_builtin,
     &mx_pwd_builtin,
     &mx_echo_builtin,
     &mx_cd_builtin,
+#ifdef __USE_XOPEN2K
+    &mx_export_builtin,
+    &mx_unset_builtin,
+#endif
 };
 
 char *mx_str_replace(char *orig, char *rep, char *with);
-void mx_replace_exp(char *str);
+void mx_replace_exp(char **str);
 char *mx_search_exp(char *str);

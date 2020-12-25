@@ -2,6 +2,30 @@
 
 void mx_replace_exp(char **str)
 {
+    char *user_name = getenv("USER");
+    char *home = getenv("HOME");
+    char *pwd = getenv("PWD");
+    char *oldpwd = getenv("OLDPWD");
+
+    char *temp;
+
+    /* if (strstr(str, (temp = mx_strconcant_new("~/", user_name)) != NULL))
+    {
+    } */
+    if (strstr(*str, "~+") != NULL)
+    {
+        *str = mx_str_replace(*str, "~+", pwd);
+    }
+    if (strstr(*str, "~-") != NULL)
+    {
+        *str = mx_str_replace(*str, "~-", oldpwd ? oldpwd : pwd);
+    }
+    if (strstr(*str, "~") != NULL)
+    {
+        // printf("found!\n");
+        *str = mx_str_replace(*str, "~", home);
+    }
+
     char *env_value;
     char *str_copy = mx_strdup(*str);
     char *exp = mx_search_exp(str_copy);
@@ -16,8 +40,17 @@ void mx_replace_exp(char **str)
         *str_copy += mx_strlen(exp);
 
         free(exp);
+        free(env_value);
         exp = mx_search_exp(str_copy);
     }
+
+    /* free(user_name);
+    free(pwd);
+    free(oldpwd);
+    free(str_copy);
+
+    if (exp != NULL)
+        free(exp); */
 }
 
 char *mx_search_exp(char *str)

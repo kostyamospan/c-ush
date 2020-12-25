@@ -4,13 +4,14 @@ int mx_exit_builtin(t_command *command)
 {
     return 0;
 }
-
+#ifdef __USE_XOPEN2K
 int mx_export_builtin(t_command *command)
 {
     if (command->argc == 0)
     {
+
         for (char **env = environ; *env; ++env)
-            printf("%s\n", *env);
+            printf("declare -x %s\n", *env);
     }
     else if (command->argc == 1)
     {
@@ -41,6 +42,20 @@ int mx_unset_builtin(t_command *command)
     return 1;
 }
 
+int mx_env_builtin(t_command *command)
+{
+    if (command->argc == 0)
+    {
+        for (char **env = environ; *env; ++env)
+            printf("%s\n", *env);
+    }
+    else if (command->argc >= 2)
+    {
+        
+    }
+}
+
+#endif
 int mx_pwd_builtin(t_command *command)
 {
     char cwd[1024];

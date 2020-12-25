@@ -30,10 +30,14 @@ extern char **environ;
 
 static char *builtins[] = {
     "exit",
-    "export",
     "pwd",
     "echo",
     "cd",
+#ifdef __USE_XOPEN2K
+    "env",
+    "export",
+    "unset",
+#endif
 };
 
 static bool have_child_proccess = false;
@@ -61,6 +65,7 @@ int mx_cd_builtin(t_command *args);
 int mx_echo_builtin(t_command *command);
 
 #ifdef __USE_XOPEN2K
+int mx_env_builtin(t_command *command);
 int mx_export_builtin(t_command *command);
 int mx_unset_builtin(t_command *command);
 #endif
@@ -77,6 +82,7 @@ static int (*builtins_funcs[])(t_command *) = {
     &mx_echo_builtin,
     &mx_cd_builtin,
 #ifdef __USE_XOPEN2K
+    &mx_env_builtin,
     &mx_export_builtin,
     &mx_unset_builtin,
 #endif
@@ -85,3 +91,5 @@ static int (*builtins_funcs[])(t_command *) = {
 char *mx_str_replace(char *orig, char *rep, char *with);
 void mx_replace_exp(char **str);
 char *mx_search_exp(char *str);
+
+char *mx_strconcant_new(const char *str1, const char *str2);

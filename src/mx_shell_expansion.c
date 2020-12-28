@@ -9,22 +9,12 @@ void mx_replace_exp(char **str)
 
     char *temp;
 
-    /* if (strstr(str, (temp = mx_strconcant_new("~/", user_name)) != NULL))
-    {
-    } */
     if (strstr(*str, "~+") != NULL)
-    {
         *str = mx_str_replace(*str, "~+", pwd);
-    }
     if (strstr(*str, "~-") != NULL)
-    {
         *str = mx_str_replace(*str, "~-", oldpwd ? oldpwd : pwd);
-    }
     if (strstr(*str, "~") != NULL)
-    {
-        // printf("found!\n");
         *str = mx_str_replace(*str, "~", home);
-    }
 
     char *env_value;
     char *str_copy = mx_strdup(*str);

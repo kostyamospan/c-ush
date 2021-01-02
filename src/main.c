@@ -2,7 +2,8 @@
 
 int main(int argc, char const *argv[])
 {
-    mx_ush_loop(argv);
-    
-    return 0;
+    ush_init();
+    ush_loop();
+
+    return EXIT_SUCCESS;
 }

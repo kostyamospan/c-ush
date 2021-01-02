@@ -68,13 +68,13 @@ void *mx_realloc(void *, size_t);
 
 //List pack
 
-t_list *mx_create_node(void *);
-void mx_push_front(t_list **, void *);
-void mx_push_back(t_list **, void *);                     //fail
-void mx_pop_front(t_list **);                             //fail
-void mx_pop_back(t_list **);                              //fail
-int mx_list_size(t_list *);                               //fail
-t_list *mx_sort_list(t_list *, bool (*)(void *, void *)); //fail
+t_list *mx_create_node(void *data);
+void mx_push_front(t_list **list, void *data);
+void mx_push_back(t_list **list, void *data);
+void mx_pop_front(t_list **head);
+void mx_pop_back(t_list **head);
+int mx_list_size(t_list *list);
+t_list *mx_sort_list(t_list *lst, bool (*cmp)(void *, void *));
 
 //Custom pack
 

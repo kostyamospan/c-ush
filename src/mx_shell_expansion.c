@@ -11,8 +11,8 @@ void mx_replace_exp(char **str)
 
     if (strstr(*str, "~+") != NULL)
         *str = mx_str_replace(*str, "~+", pwd);
-    if (strstr(*str, "~-") != NULL)
-        *str = mx_str_replace(*str, "~-", oldpwd ? oldpwd : pwd);
+    if (strstr(*str, "~-") != NULL && oldpwd)
+        *str = mx_str_replace(*str, "~-", oldpwd);
     if (strstr(*str, "~") != NULL)
         *str = mx_str_replace(*str, "~", home);
 
@@ -30,7 +30,7 @@ void mx_replace_exp(char **str)
         *str_copy += mx_strlen(exp);
 
         free(exp);
-        free(env_value);
+        // free(env_value);
         exp = mx_search_exp(str_copy);
     }
 

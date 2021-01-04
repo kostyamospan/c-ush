@@ -6,7 +6,10 @@
 // #define __USE_XOPEN2K
 // #define __USE_POSIX199506 1
 // #define _POSIX_C_SOURCE 199309L
+
+#ifndef _POSIX_VERSION
 #define _POSIX_VERSION 200809L
+#endif
 
 #ifndef _POSIX_C_SOURCE
 #define _POSIX_C_SOURCE
@@ -32,7 +35,7 @@
 #include "../libmx/inc/libmx.h"
 #include <stdbool.h>
 #include <stddef.h>
-#include <malloc.h>
+
 #include <unistd.h>
 #include <stdio.h>
 #include <string.h>
@@ -46,6 +49,12 @@
 #include <pwd.h>
 #include <limits.h>
 #include <dirent.h>
+
+#if defined __has_include
+#if __has_include(<malloc.h>)
+#include <malloc.h>
+#endif
+#endif
 
 #define NR_JOBS 20
 #define PATH_BUFSIZE 1024
@@ -83,6 +92,7 @@ static const char *STATUS_STRING[] = {
     "suspended",
     "continued",
     "terminated"};
+
 typedef struct s_process t_process;
 
 struct s_process

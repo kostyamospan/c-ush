@@ -1,0 +1,37 @@
+which
+which ls
+
+echo
+echo $HOME
+echo $NOTEXISTINGVARIABLE/shota/p
+echo ~
+echo ~/asdas/asd
+echo ~+
+echo ~-
+echo $NOTEXISTINGVARIABLE
+
+env
+
+export
+export env=VALUE
+echo $env
+export env=
+export
+export env=VALUE
+
+unset 
+unset env
+echo $env
+
+fg
+
+pwd
+
+cd ..
+pwd
+cd UNKNOWN_FOLDER
+pwd
+cd
+pwd
+
+exit

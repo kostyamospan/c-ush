@@ -237,7 +237,9 @@ int mx_cd_builtin(t_process *command)
 {
     if (command->argc == 1)
     {
+        setenv("OLDPWD", shell->pw_dir, 1);
         chdir(shell->pw_dir);
+        setenv("PWD", shell->pw_dir, 1);
         ush_update_cwd_info();
         return 0;
     }
